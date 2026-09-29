@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora</title>
+
+<style>
+body{font-family:Arial;text-align:center;background:#eef2f3;}
+.calculadora{background:#fff;padding:20px;border-radius:10px;width:200px;margin:auto;box-shadow:0 0 10px rgba(0,0,0,.2);}
+input{width:180px;height:30px;margin-bottom:10px;text-align:right;}
+button{width:40px;height:40px;margin:2px;font-size:16px;}
+</style>
+</head>
+
+<body>
+
+<h1>Calculadora</h1>
+
+<div class="calculadora">
+<input type="text" id="display" disabled><br>
+
+<button onclick="add('7')">7</button>
+<button onclick="add('8')">8</button>
+<button onclick="add('9')">9</button>
+<button onclick="add('/')">÷</button><br>
+
+<button onclick="add('4')">4</button>
+<button onclick="add('5')">5</button>
+<button onclick="add('6')">6</button>
+<button onclick="add('*')">×</button><br>
+
+<button onclick="add('1')">1</button>
+<button onclick="add('2')">2</button>
+<button onclick="add('3')">3</button>
+<button onclick="add('-')">-</button><br>
+
+<button onclick="add('0')">0</button>
+<button onclick="limpar()">C</button>
+<button onclick="calcular()">=</button>
+<button onclick="add('+')">+</button>
+</div>
+
+<script>
+let valor1 = "";
+let operador = "";
+let valor2 = "";
+
+function add(v){
+    if(v === "+" || v === "-" || v === "*" || v === "/"){
+        if(valor1 !== "" && operador === ""){
+            operador = v;
+        }
+    } else {
+        if(operador === ""){
+            valor1 += v;
+        } else {
+            valor2 += v;
+        }
+    }
+
+    document.getElementById("display").value = valor1 + operador + valor2;
+}
+
+function limpar(){
+    valor1 = "";
+    valor2 = "";
+    operador = "";
+    document.getElementById("display").value = "";
+}
+
+function calcular(){
+    let n1 = Number(valor1);
+    let n2 = Number(valor2);
+    let resultado = 0;
+
+    if(valor1 === "" || valor2 === "") return;
+
+    if(operador === "+") resultado = n1 + n2;
+    else if(operador === "-") resultado = n1 - n2;
+    else if(operador === "*") resultado = n1 * n2;
+    else if(operador === "/") resultado = n1 / n2;
+
+    document.getElementById("display").value = resultado;
+
+    valor1 = resultado.toString();
+    valor2 = "";
+    operador = "";
+}
+</script>
+
+</body>
+</html>
